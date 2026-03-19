@@ -1,0 +1,5 @@
+apple,りんご
+science,科学
+pharmacy,薬局
+university,大学
+chemistry,化学
