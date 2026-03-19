@@ -7,15 +7,20 @@ with open("wordlist.txt", "r", encoding="utf-8") as f:
     for line in f:
         english, japanese = line.strip().split(",")
         words[english] = japanese
-
-word_list = list(words.items())
-random.shuffle(word_list)
-
-review_list = []  # 間違えた単語を貯めるリスト
-score = 0
-
-print("--- 3択・復習機能付きテスト開始！ ---")
-
+def load_data():
+    words = {}
+    try:
+        with open("wordlist.txt", "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if "," in line: # カンマがある行だけ処理する
+                    parts = line.split(",")
+                    if len(parts) == 2:
+                        english, japanese = parts
+                        words[english.strip()] = japanese.strip()
+    except Exception as e:
+        st.error(f"データの読み込みでエラーが発生しました: {e}")
+    return words
 for english, japanese in word_list:
     # --- 3択の選択肢を作る ---
     # 他の単語の意味をランダムに2つ選んで、正解と混ぜる
